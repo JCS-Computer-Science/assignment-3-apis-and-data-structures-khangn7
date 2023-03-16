@@ -40,13 +40,21 @@ const start_button = document.getElementById("start-button");
 start_button.addEventListener("click", get_id);
 
 
-function get_id(){
+async function get_id(){
 
-    let json_blob = get_jsonBlob();
+    let json_blob = await get_jsonBlob();
 
     const user_id = Object.keys(json_blob);
 
     const user_name = username_box.value;
+
+    json_blob[user_id] = {
+
+        "username": user_name,
+       
+    }
+
+    up
 
 }
 
