@@ -13,7 +13,7 @@ async function get_jsonBlob(){
 
     let data = await response.json();
 
-    console.log(data)
+    return data;
 }
 
 
@@ -30,10 +30,32 @@ async function update_jsonBlob(content_obj){
 
     let data = await response.json();
 
-    console.log(data); 
+    return data; 
 }
 
-//update_jsonBlob();
 
-//get_jsonBlob();
+const username_box = document.getElementById("username-box");
 
+const start_button = document.getElementById("start-button");
+start_button.addEventListener("click", get_id);
+
+
+function get_id(){
+
+    let json_blob = get_jsonBlob();
+
+    const user_id = Object.keys(json_blob);
+
+    const user_name = username_box.value;
+
+}
+
+const form = document.getElementById("message-form");
+
+form.onsubmit = (user_text)=> {
+    user_text.preventDefault
+    
+    let user_obj = {
+
+    }
+}
