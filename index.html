@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
-    <title>title</title>
+    <title>pls no inject</title>
 </head>
 <body>
     <p id="error-message"></p>
 
     <input type="text" name="username" id="username-box">
-    <input type="submit" value="start session" id="start-button">
+    <input type="submit" value="create user" id="username-button">
 
-    <div>
-
+    <div id="messages-box">
+        send first message to start getting messages
     </div>
 
-    <form id="message-form">
+    <form id="send-form">
         <input type="text" name="text-field" id="text-box">
         <input type="submit" value="Send">
     </form>
+
+    <input type="submit" value="end session" id="end-session">
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 const BLOB_URL = "https://jsonblob.com/api/jsonBlob/1085945016400232448";
 
-async function get_jsonBlob(){
+async function getJSONBlob(){
 
     let response = await fetch(BLOB_URL, {
         method: "GET",
@@ -8,7 +8,6 @@ async function get_jsonBlob(){
             accept: "application/json",
             "Content-Type": "application/json"
         }
-        
     });
 
     let data = await response.json();
@@ -17,7 +16,7 @@ async function get_jsonBlob(){
 }
 
 
-async function update_jsonBlob(content_obj){
+async function updateJSONBlob(content_obj){
 
     let response = await fetch(BLOB_URL, {
         method: "PUT",
@@ -33,33 +32,66 @@ async function update_jsonBlob(content_obj){
     return data; 
 }
 
+function endSession(){
+
+    updateJSONBlob({
+        "messages": [],
+        "users": [],
+        "new-message": false
+    });
+}
+
 
 const username_box = document.getElementById("username-box");
 
-const start_button = document.getElementById("start-button");
-start_button.addEventListener("click", get_id);
+const username_button = document.getElementById("username-button");
+username_button.addEventListener("click", init_user);
+
+const form = document.getElementById("send-form");
+
+const messages_box = document.getElementById("messages-box");
+
+const error_message = document.getElementById("error-message");
 
 
-async function get_id(){
+async function init_user(){
 
-    let json_blob = await get_jsonBlob();
+    if(username_box.value.trim() === ""){
 
-    const user_id = Object.keys(json_blob);
-
-    const user_name = username_box.value;
-
-    json_blob[user_id] = {
-
-        "username": user_name,
-       
+        error_message.innerHTML = "invalid username";
+        return;
     }
+    
+    username_box.style.display = "none";
+    username_button.style.display = "none";
 
-    up
+
+    let _json_blob = await getJSONBlob();
+
+    //create user id, username,
+    //then push username to "users": []  of jsonBlob
+
+    const user_id = _json_blob["users"].length;
+
+    const user_name = username_box.value.trim();
+
+    _json_blob["users"].push(user_name);
+
+    let _init_response = await updateJSONBlob(_json_blob);
+
+    //show message log div and form
+    form.style.display = "block";
+    messages_box.style.display = "block"; 
 
 }
 
-const form = document.getElementById("message-form");
+function sendMessage(user_text){
 
+
+}
+
+
+// start routine fetching json_blob to check for new messages on first message
 form.onsubmit = (user_text)=> {
     user_text.preventDefault
     
