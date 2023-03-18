@@ -6,6 +6,7 @@ blank user json blob
     "taken": false
 }
 
+
 init user json blob
 
 {
@@ -14,9 +15,10 @@ init user json blob
     "username": < username >
 }
 
+
 message object pushed to user_json_blob[ "messages" ]
 
 {
-    "content": ,
-    "time"
+    "content":
+    "time":
 }

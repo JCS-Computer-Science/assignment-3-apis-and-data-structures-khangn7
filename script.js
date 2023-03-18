@@ -62,6 +62,8 @@ const error_box = document.getElementById("error-message");
 
 let my_user_name, 
     my_user_endpoint,
+    my_message_count,
+
     other_user_endpoint,
     other_message_count;
 
@@ -137,6 +139,8 @@ async function initUser(){
     fetch_interval = setInterval(checkOtherUserBlob, 10000);
 
     other_message_count = 0;
+
+    my_message_count = 0;
 
 }
 
