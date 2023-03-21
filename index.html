@@ -10,19 +10,34 @@
 <body>
     <p id="error-message"></p>
 
-    <input type="text" name="username" id="username-box">
-    <input type="submit" value="join room" id="username-button">
+    <div id="join-box">
+        <input type="text" name="username" id="username-box">
+        <input type="submit" value="join room" id="username-button">
+    </div>
+
+    
 
     <div id="messages-box">
-        send first message to start getting messages
+        <div id="messages-container">
+
+        </div>
+        <div id="send-form">
+            <input type="text" name="text-field" id="message-input-box">
+            <input type="submit" value="Send" id="send-button">
+        </div>
     </div>
 
-    <div id="send-form">
-        <input type="text" name="text-field" id="message-input-box">
-        <input type="submit" value="Send" id="send-button">
-    </div>
+    
 
     <input type="submit" value="end session" id="end-session">
+
+    <button id="dev-button">api</button>
+    <div id="dev-box">
+        do not click on these links, they're just for checking errors, you'll break the website
+        <br>
+        <a href="http://jsonblob.com/1085945016400232448" target="_blank">1085945016400232448</a>
+        <a href="http://jsonblob.com/1086508883706658816" target="_blank">1086508883706658816</a>
+    </div>
 
 </body>
 </html>

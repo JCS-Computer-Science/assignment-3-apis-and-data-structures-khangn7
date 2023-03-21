@@ -2,13 +2,58 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 #messages-box {
     display: none;
+
+    width: fit-content;
+    
+    border: 1px solid black;
 }
+#messages-container {
+    
+    width: 500px;
+    height: 400px;
+
+    border: 1px solid red;
+
+    overflow: scroll;
+}
+
+
 #send-form {
-    display: none;
+     width: 500px;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: end; 
+
 }
+
+#send-button {
+
+    padding: 5px;
+
+    background-color: lightblue;
+}
+
+#username-box {
+
+    padding: 5px;
+}
+
+#username-button {
+
+    padding: 5px;
+}
+
 #end-session {
     display: none;
+}
+
+body{
+    
 }

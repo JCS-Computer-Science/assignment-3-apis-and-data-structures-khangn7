@@ -57,7 +57,9 @@ const messages_box = document.getElementById("messages-box");
 
 const error_box = document.getElementById("error-message");
 
+const join_div = document.getElementById("join-box")
 
+const messages_container = document.getElementById("messages-container");
 
 
 let my_user_name, 
@@ -75,12 +77,14 @@ async function initUser(){
         return;
     }
     
-    username_box.style.display = "none";
-    username_button.style.display = "none";
+    join_div.style.display = "none";
 
     error_box.style.display = "block";
     error_box.innerHTML = "attempting to connect..."
 
+    messages_box.style.display = "block";
+
+    return;
     //get user blobs
 
     let chat_full = true;
@@ -156,15 +160,19 @@ async function endSession(){
     //reset stage
 }
 
-function displayMessage(content_str, time_str){
+function displayMessage(content_str, time_str, align_right){
 
     let paragraph = document.createElement("p");
 
     paragraph.class = "display-message";
 
-    paragraph.innerHTML = time_str + '\n' + content_str;
+    if(align_right){
+        paragraph.style.textAlign = "right";
+    }
 
-    messages_box.appendChild(paragraph);
+    paragraph.innerHTML = time_str + '<br>' + content_str;
+
+    messages_container.appendChild(paragraph);
 
 }
 
@@ -253,3 +261,31 @@ async function checkOtherUserBlob(){
     }
 
 }
+
+
+
+// UI FUNCTIONS
+
+for(let i = 0; i < 7; i++){
+
+    displayMessage("content", "time");
+}
+
+const dev_box = document.getElementById("dev-box");
+
+const dev_button = document.getElementById("dev-button");
+
+dev_button.addEventListener("click", ()=>{
+
+    dev_box.style.display = "flex";
+})
+
+function setCSS(){
+
+    msg_input_box.style.width = (500 - send_button.offsetWidth) + "px";
+
+    dev_box.style.display = "none";
+
+}
+
+setCSS();
