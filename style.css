@@ -3,9 +3,15 @@
     padding: 0;
     box-sizing: border-box;
 
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
 }
 #messages-box {
     display: none;
+
+    margin: auto;
+
+    margin-top: 20%;
 
     width: fit-content;
     
@@ -40,20 +46,109 @@
     background-color: lightblue;
 }
 
+#join-box {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
 #username-box {
 
-    padding: 5px;
+    margin: 5% 0;
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    border: none;
+
+    background-color: lightgrey;
 }
 
 #username-button {
 
-    padding: 5px;
+    margin: 20px;
+
+    margin-top: 0;
+
+    padding: 10px;
+
+    transition-duration: 0.2s;
+
+    cursor: pointer;
+
+    background-color: lightblue;
+
+    border: none;
+
+    border-radius: 6px;
+}
+
+#username-button:hover {
+
+    background-color: skyblue;
+
+    color: white;
+}
+
+#login-div {
+
+    margin: 10% 0;
 }
 
 #end-session {
     display: none;
 }
 
-body{
+#api-box {
+
+    position: absolute;
+    bottom: 0;
+
     
+}
+
+#dev-button {
+    border: none;
+    background-color: lightgray;
+    color: gray;
+    padding: 5px 10px;
+}
+
+.api-link {
+    
+    display: block;
+    margin: 0 10px;
+}
+
+#website-div {
+
+    width: 600px;
+    height: 600px;
+
+    display: block;
+    margin: auto;
+    margin-top: 100px;
+
+    align-items: center;
+
+    border: 1px solid black;
+}
+
+#error-message {
+
+    position: relative;
+
+    top: 10px;
+
+    text-align: center;
+
+}
+
+h2 {
+    text-align: center;
+
 }

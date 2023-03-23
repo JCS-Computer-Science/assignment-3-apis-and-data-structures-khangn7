@@ -61,6 +61,8 @@ const join_div = document.getElementById("join-box")
 
 const messages_container = document.getElementById("messages-container");
 
+const login_div = document.getElementById("login-div");
+
 
 let my_user_name, 
     my_user_endpoint,
@@ -77,7 +79,7 @@ async function initUser(){
         return;
     }
     
-    join_div.style.display = "none";
+    login_div.style.display = "none";
 
     error_box.style.display = "block";
     error_box.innerHTML = "attempting to connect..."
@@ -85,7 +87,8 @@ async function initUser(){
     messages_box.style.display = "block";
 
     return;
-    //get user blobs
+
+    //get user json_blobs
 
     let chat_full = true;
 
@@ -266,25 +269,47 @@ async function checkOtherUserBlob(){
 
 // UI FUNCTIONS
 
-for(let i = 0; i < 7; i++){
-
-    displayMessage("content", "time");
-}
 
 const dev_box = document.getElementById("dev-box");
 
 const dev_button = document.getElementById("dev-button");
 
-dev_button.addEventListener("click", ()=>{
+{
 
-    dev_box.style.display = "flex";
-})
+    let flip = true;
+
+    dev_button.addEventListener("click", ()=>{
+
+        if(flip){
+
+            dev_box.style.display = "flex";
+            flip = false;
+
+        } else {
+
+            dev_box.style.display = "none";
+            flip = true;
+
+        }
+
+        
+    })
+}
+
 
 function setCSS(){
 
     msg_input_box.style.width = (500 - send_button.offsetWidth) + "px";
 
     dev_box.style.display = "none";
+
+    
+    username_button.addEventListener("load", ()=>{
+        
+        username_button.style.width = username_box.offsetWidth;
+    })
+
+    
 
 }
 
