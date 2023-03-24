@@ -86,7 +86,6 @@ async function initUser(){
 
     messages_box.style.display = "block";
 
-    return;
 
     //get user json_blobs
 
@@ -191,15 +190,20 @@ function displayMessage(content_str, time_str, align_right){
 
     messages_container.appendChild(paragraph);
 
-    //let scroll_pixel = messages_container.children.length*[paragraph];
 
-    messages_container.scroll(0, 100)
+    let scroll_y = messages_container.children.length*paragraph.offsetHeight - messages_container.offsetHeight + 16;
+
+    messages_container.scroll(0, scroll_y)
 }
 
-for(let i = 0; i < 20; i++){
+function addM(){
+    for(let i = 0; i < 20; i++){
 
-    displayMessage("content", "time")
+        displayMessage("content", "time")
+    }
+
 }
+
 
 function getTimeStr(){
 
@@ -230,7 +234,7 @@ function messageSubmit(){
 
     console.log("sending msg");
 
-    sendMessage(msg_input_box.value);
+    sendMessage(msg_input_box.value, true);
 
 }
 
