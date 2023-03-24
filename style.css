@@ -6,6 +6,12 @@
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 
 }
+
+body {
+
+    background-color: rgb(97, 153, 255);
+}
+
 #messages-box {
     display: none;
 
@@ -16,15 +22,18 @@
     width: fit-content;
     
     border: 1px solid black;
+
+    border-radius: 6px;
 }
 #messages-container {
     
     width: 500px;
     height: 400px;
 
-    border: 1px solid red;
-
     overflow: scroll;
+
+    border-radius: 9px;
+
 }
 
 
@@ -37,6 +46,8 @@
 
     justify-content: end; 
 
+    border-radius: 6px;
+
 }
 
 #send-button {
@@ -44,6 +55,10 @@
     padding: 5px;
 
     background-color: lightblue;
+
+    border-radius: 6px;
+
+    border: none;
 }
 
 #join-box {
@@ -61,11 +76,13 @@
 
     padding: 10px;
 
+    width: 250px;
+
     border-radius: 6px;
 
     border: none;
 
-    background-color: lightgrey;
+    background-color: rgb(233, 233, 233);
 }
 
 #username-button {
@@ -76,11 +93,15 @@
 
     padding: 10px;
 
+    width: 250px;
+
     transition-duration: 0.2s;
 
     cursor: pointer;
 
-    background-color: lightblue;
+    background-color: rgb(55, 136, 190);
+
+    color: white;
 
     border: none;
 
@@ -89,9 +110,14 @@
 
 #username-button:hover {
 
-    background-color: skyblue;
+    background-color: rgb(117, 199, 117);
 
     color: white;
+}
+
+#welcome-p {
+
+    margin-top: 20%;
 }
 
 #login-div {
@@ -108,12 +134,12 @@
     position: absolute;
     bottom: 0;
 
-    
+    color: white
 }
 
 #dev-button {
     border: none;
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
     color: gray;
     padding: 5px 10px;
 }
@@ -133,9 +159,14 @@
     margin: auto;
     margin-top: 100px;
 
+
     align-items: center;
 
     border: 1px solid black;
+
+    border-radius: 9px;
+
+    background-color: white;
 }
 
 #error-message {
@@ -151,4 +182,20 @@
 h2 {
     text-align: center;
 
+}
+
+
+::-webkit-scrollbar {
+
+    width: 5px;
+  }
+  
+::-webkit-scrollbar-track {
+    background: #ffffff; 
+}
+   
+::-webkit-scrollbar-thumb {
+    background: rgb(209, 209, 209); 
+
+    border-radius: 6px;
 }

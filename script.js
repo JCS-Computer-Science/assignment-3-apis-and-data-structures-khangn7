@@ -163,6 +163,20 @@ async function endSession(){
     //reset stage
 }
 
+
+const reset_button = document.getElementById("reset-button");
+reset_button.addEventListener("click", resetSessions);
+
+async function resetSessions(){
+
+    for(let i = 0; i < USERS.length; i++){
+
+        updateJSONBlob(USERS[i]["endpoint"], {
+            "taken": false
+        });
+    }
+}
+
 function displayMessage(content_str, time_str, align_right){
 
     let paragraph = document.createElement("p");
@@ -177,6 +191,14 @@ function displayMessage(content_str, time_str, align_right){
 
     messages_container.appendChild(paragraph);
 
+    //let scroll_pixel = messages_container.children.length*[paragraph];
+
+    messages_container.scroll(0, 100)
+}
+
+for(let i = 0; i < 20; i++){
+
+    displayMessage("content", "time")
 }
 
 function getTimeStr(){
@@ -302,12 +324,6 @@ function setCSS(){
     msg_input_box.style.width = (500 - send_button.offsetWidth) + "px";
 
     dev_box.style.display = "none";
-
-    
-    username_button.addEventListener("load", ()=>{
-        
-        username_button.style.width = username_box.offsetWidth;
-    })
 
     
 
