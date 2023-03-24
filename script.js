@@ -2,7 +2,7 @@ const API_URL = "https://jsonblob.com/api/jsonBlob/";
 
 const USERS = [
     {
-        "endpoint": "1085945016400232448"
+        "endpoint": "1088919985480548352"
     },
     {
         "endpoint": "1086508883706658816"
@@ -44,8 +44,6 @@ async function updateJSONBlob(blob_endpoint, content_obj){
 
 
 
-
-
 const username_box = document.getElementById("username-box");
 
 const username_button = document.getElementById("username-button");
@@ -79,65 +77,56 @@ async function initUser(){
         return;
     }
     
-    login_div.style.display = "none";
-
-    error_box.style.display = "block";
-    error_box.innerHTML = "attempting to connect..."
-
-    messages_box.style.display = "block";
+    error_box.innerHTML = "please wait a moment...";
 
 
-    //get user json_blobs
+    // hideStartScreen();
 
-    let chat_full = true;
+    // hideMessageScreen(true);
 
-    for(let i = 0; i < USERS.length; i++){
-
-        let USERS_endpoint = USERS[i]["endpoint"];
-
-        let USERS_blob = await getJSONBlob(USERS_endpoint);
-
-        //if blob is not taken
-        if(!USERS_blob["taken"]){
-
-            my_user_endpoint = USERS_endpoint;
-
-            my_user_name = username_box.value.trim();
-
-            let _flip = i === 0 ? 1 : 0;
-
-            other_user_endpoint = USERS[_flip]["endpoint"];
+    // return;
 
 
-            //update this blob
+    // check user json_blobs and take the first available one
 
-            USERS_blob["taken"] = true;
 
-            USERS_blob["messages"] = [];
+    let chosen_endpoint = await getAvailableEndpoint();
 
-            USERS_blob["username"] = my_user_name;
-            
-            await updateJSONBlob(USERS_endpoint, USERS_blob);
-
-            chat_full = false;
-
-            break;
-        }
-    }
-
-    // if all json blobs are taken
-    if(chat_full){
+    if(chosen_endpoint === -1){
 
         error_box.innerHTML = "ppl are already using";
         return;
+
+    } else {
+
+        
+        my_user_endpoint = USERS[chosen_endpoint]["endpoint"];
+
+
+        my_user_name = username_box.value.trim();
+
+        let _flip = chosen_endpoint === 0 ? 1 : 0;
+
+        other_user_endpoint = USERS[_flip]["endpoint"];
+
+        // update taken blob
+
+        let take_blob = {
+            "taken": true,
+            "messages": [],
+            "username": my_user_name
+        };
+            
+        await updateJSONBlob(my_user_endpoint, take_blob);
     }
 
-    error_box.style.display = "none";
-    
-    messages_box.style.display = "block";
-    message_form.style.display = "block";
+    hideStartScreen();
 
-    end_session_button.style.display = "block";
+    hideMessageScreen(true);
+
+    error_box.innerHTML = "you will need to click end session before you close, refresh <br> or leave the site. If you forgot to afterwards then tell me!!!";
+    
+
 
     // start routinely fetching json_blob to check for new messages, 
     // or if other user connected
@@ -150,30 +139,69 @@ async function initUser(){
 
 }
 
+async function getAvailableEndpoint(){
+
+    // returns USERS index of first available endpoint: 0 or 1. -1 if all are taken
+
+    for(let i = 0; i < USERS.length; i++){
+
+        let USERS_blob = await getJSONBlob(USERS[i]["endpoint"]);
+
+        if(!USERS_blob["taken"]){
+
+            return i;
+
+        }
+
+    }
+
+    return -1;
+
+}
+
+
+
 const end_session_button = document.getElementById("end-session");
 end_session_button.addEventListener("click", endSession);
 
 async function endSession(){
 
-    await updateJSONBlob(my_user_endpoint, {
-        "taken": false
-    });
+    await resetSession(my_user_endpoint)
+        .catch((error)=>{console.log(error)});
+
+    error_box.innerHTML = "exited successfully";
+
+    setTimeout(()=>{
+        error_box.innerHTML = "";
+    }, 800);
+
+    // stop interval fetching 
+
+    clearInterval(fetch_interval);
 
     //reset stage
+
+    hideStartScreen(true);
+
+    hideMessageScreen();
+
 }
 
 
 const reset_button = document.getElementById("reset-button");
-reset_button.addEventListener("click", resetSessions);
-
-async function resetSessions(){
+reset_button.addEventListener("click", ()=>{
 
     for(let i = 0; i < USERS.length; i++){
 
-        updateJSONBlob(USERS[i]["endpoint"], {
-            "taken": false
-        });
+        resetSession(USERS[i]["endpoint"]);
     }
+});
+
+async function resetSession(endpoint){
+
+    updateJSONBlob(endpoint, {
+        "taken": false
+    });
 }
 
 function displayMessage(content_str, time_str, align_right){
@@ -196,14 +224,6 @@ function displayMessage(content_str, time_str, align_right){
     messages_container.scroll(0, scroll_y)
 }
 
-function addM(){
-    for(let i = 0; i < 20; i++){
-
-        displayMessage("content", "time")
-    }
-
-}
-
 
 function getTimeStr(){
 
@@ -224,6 +244,11 @@ let other_user_connected = false;
 let fetch_interval;
 
 function messageSubmit(){
+
+    if(msg_input_box.value.trim() === ""){
+        
+        return;
+    }
     
     if(!other_user_connected){
 
@@ -234,7 +259,9 @@ function messageSubmit(){
 
     console.log("sending msg");
 
-    sendMessage(msg_input_box.value, true);
+    sendMessage(msg_input_box.value);
+
+    displayMessage(msg_input_box.value)
 
 }
 
@@ -322,6 +349,7 @@ const dev_button = document.getElementById("dev-button");
     })
 }
 
+const website_div = document.getElementById("website-div");
 
 function setCSS(){
 
@@ -329,8 +357,52 @@ function setCSS(){
 
     dev_box.style.display = "none";
 
-    
-
 }
 
 setCSS();
+
+function hideStartScreen(show=false){
+    // show = true/false
+    
+    if(show){
+
+        login_div.style.display = "block";
+
+        username_box.value = "";
+        
+    } else {
+
+        login_div.style.display = "none";
+    }
+}
+
+function hideMessageScreen(show=false){
+
+    if(show){
+
+        messages_box.style.display = "block";
+
+        end_session_button.style.display = "block";
+
+    } else {
+
+        messages_box.style.display = "none";
+
+        end_session_button.style.display = "none";
+    }
+}
+
+// fill api-links
+{
+    for(let i = 0; i < USERS.length; i++){
+
+        let api_link = document.createElement("a");
+
+        api_link.className = "api-link";
+
+        api_link.appendChild(document.createTextNode(USERS[i]["endpoint"]));
+        api_link.href = "http://jsonblob.com/" + USERS[i]["endpoint"]; 
+
+        dev_box.appendChild(api_link);
+    }
+}

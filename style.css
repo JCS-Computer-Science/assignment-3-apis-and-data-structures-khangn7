@@ -17,7 +17,7 @@ body {
 
     margin: auto;
 
-    margin-top: 20%;
+    margin-top: 6%;
 
     width: fit-content;
     
@@ -25,6 +25,7 @@ body {
 
     border-radius: 6px;
 }
+
 #messages-container {
     
     width: 500px;
@@ -38,7 +39,8 @@ body {
 
 
 #send-form {
-     width: 500px;
+
+    width: 500px;
 
     display: flex;
 
@@ -46,20 +48,47 @@ body {
 
     justify-content: end; 
 
-    border-radius: 6px;
+    border-bottom-left-radius: 6px;
 
 }
 
 #send-button {
 
-    padding: 5px;
+    padding: 8px 10px;
 
     background-color: lightblue;
 
-    border-radius: 6px;
+    transition-duration: 0.1s;
+
+
+    border-bottom-right-radius: 6px;
 
     border: none;
 }
+
+#send-button:hover {
+
+    background-color: rgb(0, 106, 255); 
+    color: white;
+}
+
+#message-input-box {
+
+    background-color: rgb(233, 233, 233);
+
+    padding: 8px 10px;
+    
+    border: none;
+
+    border-bottom-left-radius: 6px;
+}
+
+#message-input-box:focus {
+
+    outline: none;
+}
+
+
 
 #join-box {
 
@@ -83,6 +112,12 @@ body {
     border: none;
 
     background-color: rgb(233, 233, 233);
+
+}
+
+#username-box:hover {
+
+    outline: none;
 }
 
 #username-button {
@@ -99,7 +134,7 @@ body {
 
     cursor: pointer;
 
-    background-color: rgb(55, 136, 190);
+    background-color: rgb(67, 141, 190);
 
     color: white;
 
@@ -118,6 +153,8 @@ body {
 #welcome-p {
 
     margin-top: 20%;
+
+    text-align: center;
 }
 
 #login-div {
@@ -127,6 +164,27 @@ body {
 
 #end-session {
     display: none;
+
+    margin: auto;
+
+    margin-top: 2%;
+
+    padding: 8px 10px;
+
+    border-radius: 6px;
+
+    border: none;
+
+    background-color: rgb(255, 175, 166);
+
+    transition-duration: 0.1s;
+}
+
+#end-session:hover {
+
+    background-color: lightgreen;
+
+    color: white;
 }
 
 #api-box {
@@ -134,7 +192,7 @@ body {
     position: absolute;
     bottom: 0;
 
-    color: white
+    color: black
 }
 
 #dev-button {
@@ -142,12 +200,18 @@ body {
     background-color: rgb(255, 255, 255);
     color: gray;
     padding: 5px 10px;
+
+    position: absolute;
+    left: 275px;
+    top: 50px;
 }
 
 .api-link {
     
     display: block;
     margin: 0 10px;
+
+    color: black
 }
 
 #website-div {
@@ -173,9 +237,13 @@ body {
 
     position: relative;
 
-    top: 10px;
+    color: black;
+
+    top: 5%;
 
     text-align: center;
+
+    z-index: 2;
 
 }
 
