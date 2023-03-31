@@ -71,6 +71,7 @@ let my_user_name,
 
 async function initUser(){
 
+
     if(username_box.value.trim() === ""){
 
         error_box.innerHTML = "invalid username";
@@ -124,9 +125,9 @@ async function initUser(){
 
     hideMessageScreen(true);
 
-    error_box.innerHTML = "you will need to click end session before you close, refresh <br> or leave the site. If you forgot to afterwards then tell me!!!";
+    error_box.innerHTML = "you will need to click end session before you close, "
+    + "refresh <br> or leave the site. If you forgot to afterwards then tell me!!!";
     
-
 
     // start routinely fetching json_blob to check for new messages, 
     // or if other user connected
@@ -218,7 +219,7 @@ function displayMessage(content_str, time_str, align_right){
 
     messages_container.appendChild(paragraph);
 
-
+    // scroll down to latest message
     let scroll_y = messages_container.children.length*paragraph.offsetHeight - messages_container.offsetHeight + 16;
 
     messages_container.scroll(0, scroll_y)
@@ -243,7 +244,9 @@ let other_user_connected = false;
 
 let fetch_interval;
 
-function messageSubmit(){
+const process_message = document.getElementById("process-message");
+
+async function messageSubmit(){
 
     if(msg_input_box.value.trim() === ""){
         
@@ -252,16 +255,18 @@ function messageSubmit(){
     
     if(!other_user_connected){
 
-        console.log("no one listening")
+        process_message.innerHTML = "no one is listening...";
 
         return;
     }
 
-    console.log("sending msg");
-
     sendMessage(msg_input_box.value);
 
-    displayMessage(msg_input_box.value)
+    displayMessage(msg_input_box.value, getTimeStr(), true);
+
+    process_message.innerHTML = "message sent";
+
+    msg_input_box.value = "";
 
 }
 
@@ -292,6 +297,8 @@ async function checkOtherUserBlob(){
         other_user_connected = true;
 
     } else {
+
+        other_user_connected = false;
 
         return;
     }
@@ -377,6 +384,16 @@ function hideStartScreen(show=false){
 }
 
 function hideMessageScreen(show=false){
+    
+    // clear message container
+    while (messages_container.firstChild)
+    {
+        messages_container.removeChild(messages_container.firstChild);
+    }
+
+    process_message.innerHTML = "";
+
+    msg_input_box.value = "";
 
     if(show){
 
