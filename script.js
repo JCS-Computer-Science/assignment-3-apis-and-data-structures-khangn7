@@ -12,13 +12,21 @@ const USERS = [
 
 async function getJSONBlob(blob_endpoint){
 
-    let response = await fetch(API_URL + blob_endpoint, {
-        method: "GET",
-        headers: {
-            accept: "application/json",
-            "Content-Type": "application/json"
-        }
-    });
+    let response;
+    try
+    {
+        response = await fetch(API_URL + blob_endpoint, {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
 
     let data = await response.json();
 
@@ -28,21 +36,28 @@ async function getJSONBlob(blob_endpoint){
 
 async function updateJSONBlob(blob_endpoint, content_obj){
 
-    let response = await fetch(API_URL + blob_endpoint, {
-        method: "PUT",
-        headers: {
-            accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(content_obj)
-    });
+    let response;
+
+    try
+    {
+        response = await fetch(API_URL + blob_endpoint, {
+            method: "PUT",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(content_obj)
+        });
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
 
     let data = await response.json();
 
     return data; 
 }
-
-
 
 const username_box = document.getElementById("username-box");
 
@@ -170,8 +185,7 @@ end_session_button.addEventListener("click", endSession);
 
 async function endSession(){
 
-    await resetSession(my_user_endpoint)
-        .catch((error)=>{console.log(error)});
+    await resetSession(my_user_endpoint);
 
     error_box.innerHTML = "exited successfully";
 
