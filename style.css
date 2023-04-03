@@ -9,7 +9,8 @@
 
 body {
 
-    background-color: rgb(97, 153, 255);
+    background-image: url("mike.jpg");
+    background-size: 300px 100px;
 }
 
 #messages-box {
@@ -195,13 +196,14 @@ body {
 
     color: black;
 
-    background-color: yellow;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #dev-button {
     border: none;
     color: gray;
     padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .api-link {

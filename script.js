@@ -66,6 +66,7 @@ let my_user_name,
     my_user_endpoint,
     my_message_count,
 
+    other_user_name,
     other_user_endpoint,
     other_message_count;
 
@@ -120,6 +121,8 @@ async function initUser(){
             
         await updateJSONBlob(my_user_endpoint, take_blob);
     }
+
+    checkOtherUserBlob();
 
     hideStartScreen();
 
@@ -205,7 +208,7 @@ async function resetSession(endpoint){
     });
 }
 
-function displayMessage(content_str, time_str, align_right){
+function displayMessage(content_str, time_str, align_right, username){
 
     let paragraph = document.createElement("p");
 
@@ -215,7 +218,7 @@ function displayMessage(content_str, time_str, align_right){
         paragraph.style.textAlign = "right";
     }
 
-    paragraph.innerHTML = time_str + '<br>' + content_str;
+    paragraph.innerHTML = time_str + '<br>' + '<b>'+ username + '</b>' + '<br>' + content_str;
 
     messages_container.appendChild(paragraph);
 
@@ -262,7 +265,7 @@ async function messageSubmit(){
 
     sendMessage(msg_input_box.value);
 
-    displayMessage(msg_input_box.value, getTimeStr(), true);
+    displayMessage(msg_input_box.value, getTimeStr(), true, my_user_name);
 
     process_message.innerHTML = "message sent";
 
@@ -296,6 +299,8 @@ async function checkOtherUserBlob(){
 
         other_user_connected = true;
 
+        other_user_name = other_json["username"];
+
     } else {
 
         other_user_connected = false;
@@ -317,7 +322,7 @@ async function checkOtherUserBlob(){
 
             let _message = _other_messages[i];
 
-            displayMessage(_message["content"], _message["time"]);
+            displayMessage(_message["content"], _message["time"], false, other_user_name);
         }
 
         other_message_count = _other_messages_length;
