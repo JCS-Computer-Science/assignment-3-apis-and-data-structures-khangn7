@@ -1,14 +1,16 @@
+import endpoints from "./api-endppoints.js";
+
+console.log(endpoints);
+
+
 const API_URL = "https://jsonblob.com/api/jsonBlob/";
 
-const USERS = [
-    {
-        "endpoint": "1088919985480548352"
-    },
-    {
-        "endpoint": "1086508883706658816"
-    }
-];
+const USERS = endpoints;
 
+
+const error_box = document.getElementById("error-message");
+
+const no_exist_message = "<br>jsonBlob does not exist, owner of github repo will need to create new endpoints and change 'api-endpoints.js' in repo, check README.md for steps<br><br> <b>this website will not work</b>"
 
 async function getJSONBlob(blob_endpoint){
 
@@ -22,17 +24,23 @@ async function getJSONBlob(blob_endpoint){
                 "Content-Type": "application/json"
             }
         });
+
+        throw response.status;
     }
-    catch (error)
+    catch (status)
     {
-        console.log(error);
+        error_box.innerHTML = "reponse status " + response.status;
     }
 
     let data = await response.json();
 
+    if (data.message !== undefined)
+    {
+        error_box.innerHTML += no_exist_message;
+    }
+
     return data;
 }
-
 
 async function updateJSONBlob(blob_endpoint, content_obj){
 
@@ -67,8 +75,6 @@ username_button.addEventListener("click", initUser);
 const message_form = document.getElementById("send-form");
 
 const messages_box = document.getElementById("messages-box");
-
-const error_box = document.getElementById("error-message");
 
 const join_div = document.getElementById("join-box")
 
