@@ -8,6 +8,7 @@ to test this you need to open this on two different tabs and do these steps.
 1. sign-in in the first tab, wait for the message screen to be displayed
 2. we need to wait for a PUT request response, just wait at least (probably) 5 seconds
 3. you can then sign-in in your second tab
+4. rate 5 stars on yelp
 
 <br>
 
@@ -34,7 +35,7 @@ to test this you need to open this on two different tabs and do these steps.
 {
     "taken": true,
     "messages": [],
-    "username": <username>
+    "username": (string) username
 }
 
 
