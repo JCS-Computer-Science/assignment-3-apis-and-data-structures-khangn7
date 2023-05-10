@@ -1,4 +1,4 @@
-# api assignment
+# messaging website
 
 # PLEASE READ - how to use
 
