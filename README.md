@@ -53,7 +53,7 @@ to test this you need to open this on two different tabs and do these steps.
 <br>if the website directed you here, actually just retry first with both tabs open
 1. go to https://jsonblob.com/
 2. press 'new' button near search bar
-3. paste 'blank user blob' from above into code editor
+3. paste 'blank user blob' from the 'default json' section above into code editor
 3. press save and get the endpoint in 'http://jsonblob.com/< endpoint >'
 4. do this twice
 5. replace endpoints in api-endpoints.js
